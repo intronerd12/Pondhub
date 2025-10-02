@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PondHub - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('assets/backg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            transition: transform 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h1 {
+            color: #1e88e5;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #1e88e5;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 1rem;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .login-button:hover {
+            background: #1565c0;
+        }
+
+        .login-links {
+            text-align: center;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .login-links a {
+            color: #1e88e5;
+            text-decoration: none;
+        }
+
+        .login-links a:hover {
+            text-decoration: underline;
+        }
+
+        .register-container {
+            display: none;
+        }
+
+        .register-container.active {
+            display: block;
+        }
+
+        .login-form.hidden {
+            display: none;
+        }
+
+        .switch-text {
+            margin-top: 1rem;
+            text-align: center;
+            color: #666;
+        }
+
+        .switch-text a {
+            color: #1e88e5;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .switch-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>PondHub</h1>
+            <p>Pond Monitoring System</p>
+        </div>
+        
+        <form class="login-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-button">Log In</button>
+        </form>
+
+        <form class="register-container">
+            <div class="form-group">
+                <label for="reg-username">Username</label>
+                <input type="text" id="reg-username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="reg-email">Email</label>
+                <input type="email" id="reg-email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="reg-password">Password</label>
+                <input type="password" id="reg-password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="reg-confirm-password">Confirm Password</label>
+                <input type="password" id="reg-confirm-password" name="confirm-password" required>
+            </div>
+            <button type="submit" class="login-button">Register</button>
+            <div class="switch-text">
+                Already have an account? <a onclick="toggleForms()" href="#">Login</a>
+            </div>
+        </form>
+
+        <div class="login-links">
+            <a href="#">Forgot Password?</a>
+            <a href="#" onclick="toggleForms()">Register</a>
+        </div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            const loginForm = document.querySelector('.login-form');
+            const registerForm = document.querySelector('.register-container');
+            const loginLinks = document.querySelector('.login-links');
+
+            loginForm.classList.toggle('hidden');
+            registerForm.classList.toggle('active');
+            loginLinks.style.display = loginForm.classList.contains('hidden') ? 'none' : 'flex';
+        }
+    </script>
+</body>
+</html>

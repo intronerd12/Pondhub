@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>PondHub - Multi-Pond Monitoring System</title>
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" as="script">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <!-- Add preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>PondHub</h1>
+                    <p>Multi-Pond Monitoring<br>System</p>
+                </div>
+            </div>
+            <nav class="nav">
+                <button class="nav-item active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                    </svg>
+                    <span>Pond Monitoring</span>
+                </button>
+                <button class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    </svg>
+                    <span>Comparative Analytics</span>
+                </button>
+                <button class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                        <polyline points="17 6 23 6 23 12"/>
+                    </svg>
+                    <span>Harvest Forecast</span>
+                </button>
+                <button class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    <span>Schedule</span>
+                </button>
+                <button class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v6m0 6v6m-5.7-13.3l4.2 4.2m2.8 2.8l4.2 4.2m-13.3-5.7l4.2 4.2m2.8 2.8l4.2 4.2"/>
+                    </svg>
+                    <span>Settings</span>
+                </button>
+                <div class="nav-spacer"></div>
+                <button class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    <span>Logout</span>
+                </button>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="topbar">
+                <div class="topbar-left">
+                    <h2>Dashboard</h2>
+                    <div class="breadcrumb">Overview / Real-time Monitoring</div>
+                </div>
+                <div class="topbar-right">
+                    <div class="status-indicator">
+                        <div class="status-dot"></div>
+                        <span class="status-text">All Systems Active</span>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-avatar">A</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card blue">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-label">Active Ponds</div>
+                        <div class="stat-value">3</div>
+                        <div class="stat-change positive">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="18 15 12 9 6 15"/>
+                            </svg>
+                            100% Operational
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card green">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-label">Health Score</div>
+                        <div class="stat-value">95%</div>
+                        <div class="stat-change positive">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="18 15 12 9 6 15"/>
+                            </svg>
+                            +5% from yesterday
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card orange">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-label">Alerts Active</div>
+                        <div class="stat-value">1</div>
+                        <div class="stat-change negative">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                            Low oxygen detected
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card purple">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-label">Next Harvest</div>
+                        <div class="stat-value">14d</div>
+                        <div class="stat-change positive">
+                            Pond A - Oct 17, 2025
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pond Cards -->
+                <div class="ponds-section">
+                    <div class="section-header">
+                        <h3 class="section-title">Live Pond Status</h3>
+                        <a href="#" class="view-all">View All →</a>
+                    </div>
+                    <div class="ponds-grid">
+                        <div class="pond-card">
+                            <div class="pond-header">
+                                <h4 class="pond-name">Pond A</h4>
+                                <span class="pond-status optimal">Optimal</span>
+                            </div>
+                            <div class="pond-metrics">
+                                <div class="metric">
+                                    <div class="metric-value">28°C</div>
+                                    <div class="metric-label">Temperature</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">7.4</div>
+                                    <div class="metric-label">pH Level</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">6.5</div>
+                                    <div class="metric-label">DO mg/L</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pond-card">
+                            <div class="pond-header">
+                                <h4 class="pond-name">Pond B</h4>
+                                <span class="pond-status good">Good</span>
+                            </div>
+                            <div class="pond-metrics">
+                                <div class="metric">
+                                    <div class="metric-value">27°C</div>
+                                    <div class="metric-label">Temperature</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">7.2</div>
+                                    <div class="metric-label">pH Level</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">6.8</div>
+                                    <div class="metric-label">DO mg/L</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pond-card">
+                            <div class="pond-header">
+                                <h4 class="pond-name">Pond C</h4>
+                                <span class="pond-status warning">Warning</span>
+                            </div>
+                            <div class="pond-metrics">
+                                <div class="metric">
+                                    <div class="metric-value">29°C</div>
+                                    <div class="metric-label">Temperature</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">7.0</div>
+                                    <div class="metric-label">pH Level</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">5.9</div>
+                                    <div class="metric-label">DO mg/L</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Analytics Grid -->
+                <div class="analytics-grid">
+                    <div class="chart-panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Water Quality Trends</h3>
+                            <div class="time-filter">
+                                <button class="filter-btn">24H</button>
+                                <button class="filter-btn active">7D</button>
+                                <button class="filter-btn">30D</button>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="qualityChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Recent Activity</h3>
+                        </div>
+                        <div>
+                            <div class="activity-item">
+                                <div class="activity-icon alert">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Low oxygen in Pond C</div>
+                                    <div class="activity-time">5 minutes ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon success">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Feeding schedule completed</div>
+                                    <div class="activity-time">2 hours ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon info">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="16" x2="12" y2="12"/>
+                                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                                    </svg>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Water quality check scheduled</div>
+                                    <div class="activity-time">4 hours ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon success">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">pH levels normalized in Pond B</div>
+                                    <div class="activity-time">6 hours ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon info">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="16" x2="12" y2="12"/>
+                                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                                    </svg>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">System maintenance completed</div>
+                                    <div class="activity-time">Yesterday</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Harvest Forecast Chart -->
+                <div class="chart-panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Harvest Production Forecast</h3>
+                        <div class="time-filter">
+                            <button class="filter-btn">Quarterly</button>
+                            <button class="filter-btn active">Monthly</button>
+                            <button class="filter-btn">Weekly</button>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="harvestChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Add before chart initialization
+        const loadingTemplate = `
+            <div class="loading-state">
+                <svg class="spinner" viewBox="0 0 50 50">
+                    <circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="4"/>
+                </svg>
+            </div>
+        `;
+
+        // Error handling for charts
+        function initializeChart(ctx, config) {
+            try {
+                return new Chart(ctx, {
+                    ...config,
+                    options: {
+                        ...config.options,
+                        ...chartDefaults
+                    }
+                });
+            } catch (error) {
+                console.error('Chart initialization failed:', error);
+                ctx.parentElement.innerHTML = `
+                    <div class="chart-error">
+                        Unable to load chart data
+                        <button onclick="location.reload()">Retry</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Water Quality Trend Chart
+        const qualityCtx = document.getElementById('qualityChart').getContext('2d');
+        new Chart(qualityCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Pond A',
+                    data: [7.2, 7.4, 7.3, 7.5, 7.4, 7.6, 7.4],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.05)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: '#3b82f6',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }, {
+                    label: 'Pond B',
+                    data: [7.3, 7.2, 7.4, 7.3, 7.2, 7.3, 7.2],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.05)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: '#10b981',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }, {
+                    label: 'Pond C',
+                    data: [7.1, 7.0, 7.2, 7.1, 7.0, 6.9, 7.0],
+                    borderColor: '#8b5cf6',
+                    backgroundColor: 'rgba(139, 92, 246, 0.05)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: '#8b5cf6',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        align: 'end',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 15,
+                            font: {
+                                size: 12,
+                                weight: '600'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1f2937',
+                        padding: 12,
+                        titleFont: {
+                            size: 13,
+                            weight: '600'
+                        },
+                        bodyFont: {
+                            size: 13
+                        },
+                        cornerRadius: 8,
+                        displayColors: true,
+                        usePointStyle: true
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 6.5,
+                        max: 8,
+                        grid: {
+                            color: '#f1f5f9',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 11,
+                                weight: '600'
+                            },
+                            color: '#64748b',
+                            padding: 8
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 11,
+                                weight: '600'
+                            },
+                            color: '#64748b',
+                            padding: 8
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                }
+            }
+        });
+        
+        // Harvest Forecast Chart
+        const harvestCtx = document.getElementById('harvestChart').getContext('2d');
+        new Chart(harvestCtx, {
+            type: 'bar',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                datasets: [{
+                    label: 'Forecasted (kg)',
+                    data: [450, 480, 520, 550, 580, 600],
+                    backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                    borderRadius: 8,
+                    borderSkipped: false
+                }, {
+                    label: 'Actual (kg)',
+                    data: [420, 465, 510, 535, null, null],
+                    backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        align: 'end',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 15,
+                            font: {
+                                size: 12,
+                                weight: '600'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1f2937',
+                        padding: 12,
+                        titleFont: {
+                            size: 13,
+                            weight: '600'
+                        },
+                        bodyFont: {
+                            size: 13
+                        },
+                        cornerRadius: 8,
+                        displayColors: true,
+                        usePointStyle: true
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#f1f5f9',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 11,
+                                weight: '600'
+                            },
+                            color: '#64748b',
+                            padding: 8,
+                            callback: function(value) {
+                                return value + ' kg';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 11,
+                                weight: '600'
+                            },
+                            color: '#64748b',
+                            padding: 8
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Global Chart.js configuration
+        const chartDefaults = {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+                duration: 800,
+                easing: 'easeOutQuart'
+            },
+            elements: {
+                line: {
+                    tension: 0.4,
+                    borderWidth: 2,
+                    borderJoinStyle: 'round'
+                },
+                point: {
+                    hitRadius: 8,
+                    hoverRadius: 6,
+                    borderWidth: 2
+                }
+            }
+        };
+
+        Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
+    </script>
+</body>
+</html>

@@ -144,9 +144,9 @@
             <p>Pond Monitoring System</p>
         </div>
         
-        <form class="login-form" id="loginForm">
+        <form class="login-form">
             <div class="form-group">
-                <label for="username">Username or Email</label>
+                <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="form-group">
@@ -156,7 +156,7 @@
             <button type="submit" class="login-button">Log In</button>
         </form>
 
-        <form class="register-container" id="registerForm">
+        <form class="register-container">
             <div class="form-group">
                 <label for="reg-username">Username</label>
                 <input type="text" id="reg-username" name="username" required>
@@ -183,13 +183,9 @@
             <a href="#">Forgot Password?</a>
             <a href="#" onclick="toggleForms()">Register</a>
         </div>
-
-        <div id="message" style="margin-top:12px;text-align:center;color:#b00020;"></div>
     </div>
 
     <script>
-        const API_BASE = window.location.origin + "/api/auth"; // assumes backend and frontend served from same origin
-
         function toggleForms() {
             const loginForm = document.querySelector('.login-form');
             const registerForm = document.querySelector('.register-container');
@@ -198,65 +194,7 @@
             loginForm.classList.toggle('hidden');
             registerForm.classList.toggle('active');
             loginLinks.style.display = loginForm.classList.contains('hidden') ? 'none' : 'flex';
-            document.getElementById('message').textContent = '';
         }
-
-        // helper to show messages
-        function showMessage(msg, success = false) {
-            const el = document.getElementById('message');
-            el.style.color = success ? '#1e7e34' : '#b00020';
-            el.textContent = msg;
-        }
-
-        // Login submit
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const identifier = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-
-            try {
-                const res = await fetch(API_BASE + '/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ identifier, password })
-                });
-                const data = await res.json();
-                if (!res.ok) throw new Error(data.message || 'Login failed');
-                // store token in localStorage for demo purposes
-                localStorage.setItem('token', data.token);
-                showMessage('Login successful', true);
-                // redirect or update UI as needed
-            } catch (err) {
-                showMessage(err.message || 'Login error');
-            }
-        });
-
-        // Register submit
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('reg-username').value.trim();
-            const email = document.getElementById('reg-email').value.trim();
-            const password = document.getElementById('reg-password').value;
-            const confirm = document.getElementById('reg-confirm-password').value;
-            if (password !== confirm) {
-                showMessage('Passwords do not match');
-                return;
-            }
-            try {
-                const res = await fetch(API_BASE + '/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, password })
-                });
-                const data = await res.json();
-                if (!res.ok) throw new Error(data.message || 'Registration failed');
-                localStorage.setItem('token', data.token);
-                showMessage('Registration successful', true);
-                // switch to login or proceed
-            } catch (err) {
-                showMessage(err.message || 'Registration error');
-            }
-        });
     </script>
 </body>
 </html>
